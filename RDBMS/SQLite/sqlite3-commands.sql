@@ -680,4 +680,226 @@ sqlite> DROP VIEW artists_list;
 
 /* Important Note: Deleting a view does not affect data in database,
    but deleting a table will affect. So, be very careful while deleting a table.
+   It is always better to backup our database before trying to delete anything.
 */
+sqlite> .backup musicbackup_v2.db;
+
+
+/* Now try playing with actual tables:
+   Delete all the records from songs table where track is less than 50.
+*/
+sqlite> DELETE FROM songs WHERE track < 50;
+
+-- Now see the songs table:
+sqlite> SELECT * FROM songs;
+_id|track|title|album
+198|60|Turkeys|177
+912|53|My Brother Makes The Noises For The Talkies|177
+1116|59|The Strain|177
+1690|61|King Of Scurf|177
+1994|67|Fresh Wound|177
+2135|63|Straight From The Heart|177
+2434|57|Mr. Apollo (Single Version) (German Version)|177
+2535|50|I Want To Be With You|177
+2583|68|Bad Blood|177
+2621|69|Slush|177
+2679|65|Rawlinson End|177
+2736|54|I'm Going To Bring A Watermelon To My Girl Tonight|177
+2794|66|Don't Get Me Wrong|177
+3010|58|Ready Mades|177
+3358|64|Rusty (Champion Thrust)|177
+3618|72|Trouser Freak - Roger Ruskin Spear & His Giant Orchestral Wardrobe|177
+3712|62|Waiting For The Wardrobe|177
+3797|70|Labio-Dental Fricative - Vivian Stanshall Sean Head Showband|177
+3959|55|Alley Oop|177
+4308|52|Busted|177
+4881|51|Noises For The Leg|177
+4991|56|Button Up Your Overcoat|177
+5256|50|Closer To You|254
+5312|71|Re-Cycled Vinyl Blues - Neil Innes|177
+sqlite>
+
+/* Very few records left. Lets find out how many artists records left from our
+   artist_list VIEW created earlier, which also should have changed because of
+   the last delete command. */
+
+sqlite> SELECT * FROM artists_list;
+artist_name|album_name|song_track|song_title
+Bonzo Dog Band|Cornology|50|I Want To Be With You
+Bonzo Dog Band|Cornology|51|Noises For The Leg
+Bonzo Dog Band|Cornology|52|Busted
+Bonzo Dog Band|Cornology|53|My Brother Makes The Noises For The Talkies
+Bonzo Dog Band|Cornology|54|"I'm Going To Bring A Watermelon To My Girl Tonight"
+Bonzo Dog Band|Cornology|55|Alley Oop
+Bonzo Dog Band|Cornology|56|Button Up Your Overcoat
+Bonzo Dog Band|Cornology|57|Mr. Apollo (Single Version) (German Version)
+Bonzo Dog Band|Cornology|58|Ready Mades
+Bonzo Dog Band|Cornology|59|The Strain
+Bonzo Dog Band|Cornology|60|Turkeys
+Bonzo Dog Band|Cornology|61|King Of Scurf
+Bonzo Dog Band|Cornology|62|Waiting For The Wardrobe
+Bonzo Dog Band|Cornology|63|Straight From The Heart
+Bonzo Dog Band|Cornology|64|Rusty (Champion Thrust)
+Bonzo Dog Band|Cornology|65|Rawlinson End
+Bonzo Dog Band|Cornology|66|"Don't Get Me Wrong"
+Bonzo Dog Band|Cornology|67|Fresh Wound
+Bonzo Dog Band|Cornology|68|Bad Blood
+Bonzo Dog Band|Cornology|69|Slush
+Bonzo Dog Band|Cornology|70|Labio-Dental Fricative - Vivian Stanshall Sean Head Showband
+Bonzo Dog Band|Cornology|71|Re-Cycled Vinyl Blues - Neil Innes
+Bonzo Dog Band|Cornology|72|Trouser Freak - Roger Ruskin Spear & His Giant Orchestral Wardrobe
+J.J. Cale|Anyway The Wind Blows - The Anthology|50|Closer To You
+sqlite>
+
+/* We can see that only 2 artists left.
+   Now, select a track which is not equal to 71.
+*/
+sqlite> SELECT * FROM songs WHERE track <> 71;
+_id|track|title|album
+198|60|Turkeys|177
+912|53|My Brother Makes The Noises For The Talkies|177
+1116|59|The Strain|177
+1690|61|King Of Scurf|177
+1994|67|Fresh Wound|177
+2135|63|Straight From The Heart|177
+2434|57|Mr. Apollo (Single Version) (German Version)|177
+2535|50|I Want To Be With You|177
+2583|68|Bad Blood|177
+2621|69|Slush|177
+2679|65|Rawlinson End|177
+2736|54|"I'm Going To Bring A Watermelon To My Girl Tonight"|177
+2794|66|"Don't Get Me Wrong"|177
+3010|58|Ready Mades|177
+3358|64|Rusty (Champion Thrust)|177
+3618|72|Trouser Freak - Roger Ruskin Spear & His Giant Orchestral Wardrobe|177
+3712|62|Waiting For The Wardrobe|177
+3797|70|Labio-Dental Fricative - Vivian Stanshall Sean Head Showband|177
+3959|55|Alley Oop|177
+4308|52|Busted|177
+4881|51|Noises For The Leg|177
+4991|56|Button Up Your Overcoat|177
+5256|50|Closer To You|254
+sqlite>
+
+
+
+
+
+
+
+
+
+/* We can use SQL functions in our query. The in-built functions include-
+   COUNT, AVG. MIN, MAX, etc.
+*/
+sqlite> SELECT COUNT(*) FROM songs;
+COUNT(*)
+24
+sqlite> SELECT COUNT(*) FROM albums;
+COUNT(*)
+439
+sqlite> SELECT COUNT(*) FROM artists;
+COUNT(*)
+202
+sqlite>
+
+
+/* Let's restore our database and see how many entries we have got there. */
+sqlite> .restore musicbackup_v2.db
+sqlite> SELECT COUNT(*) FROM songs;
+COUNT(*)
+5350
+sqlite> SELECT COUNT(*) FROM albums;
+COUNT(*)
+439
+sqlite> SELECT COUNT(*) FROM artists;
+COUNT(*)
+202
+sqlite>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Challenges:
+      1. Select the titles of all the songs on the album "Forbidden".
+      2. Repeat the previous query, but this time display the song in the track
+         order. You may want to include the track number in the output to verify
+         that it worked OK.
+      3. Display all songs for the band "Deep Purple".
+      4. Rename the band "Mehitabel" to "One Kitchen". Note that this is an
+         exception to the advice to always fully qualify your column names.
+         SET artists.name won't work, you just need to specify name.
+      5. Check the record was correctly renamed.
+      6. Select the titles of all the songs by Aerosmith in alphabetical order.
+         Include only the title in the output.
+      7. Replace the column that you used in the previous answer with
+         count(title) to get just a count of the number of songs.
+      8. Search the Internet to find out how to get a list of the songs from
+         step 6 without any duplicates.
+      9. Search the Internet again to find out how to get a count of the songs
+         without duplicates.
+         Hint: It uses the same keyword as step 8 but the syntax may not be
+         obvious.
+     10. Repeat the previous the query to find the number of artists
+         (which, obviously, should be one) and the number of albums.
+*/
+
+
+/* My Solutions:
+   Before solving the solution it is important to know the schema of all the
+   available tables.
+*/
+D:\Learning\databases\RDBMS\SQLite>sqlite3 music.db
+SQLite version 3.28.0 2019-04-16 19:49:53
+Enter ".help" for usage hints.
+sqlite> .schema
+CREATE TABLE songs (_id INTEGER PRIMARY KEY, track INTEGER, title TEXT NOT NULL, album INTEGER);
+CREATE TABLE albums (_id INTEGER PRIMARY KEY, name TEXT NOT NULL, artist INTEGER);
+CREATE TABLE artists (_id INTEGER PRIMARY KEY, name TEXT NOT NULL);
+CREATE VIEW artists_list AS
+        SELECT artists.name AS "artist_name", albums.name AS "album_name",
+               songs.track AS "song_track", songs.title AS "song_title" FROM songs
+        INNER JOIN albums ON songs.album=albums._id
+        INNER JOIN artists ON albums.artist=artists._id
+        ORDER BY artists.name, albums.name, songs.track
+/* artists_list(artist_name,album_name,song_track,song_title) */;
+sqlite>
+
+-- Now, go ahead and try to solve the challenges:
+
+-- 1. Select the titles of all the songs on the album "Forbidden".
+sqlite> SELECT songs.title AS song_title/*, albums.name AS album_name*/
+        FROM songs
+        INNER JOIN albums ON songs.album=albums._id
+        WHERE albums.name="Forbidden";
+song_title
+The Illusion of Power
+Sick and Tired
+Can't Get Close Enough
+Forbidden
+Shaking Off the Chains
+Get a Grip
+Kiss of Death
+Guilty as Hell
+Rusty Angels
+I Won't Cry for You
+sqlite>
+
+
+
+/* 2. Repeat the previous query, but this time display the song in the track
+      order. You may want to include the track number in the output to verify
+      that it worked OK.
+*/
+
