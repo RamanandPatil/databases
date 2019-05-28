@@ -1,4 +1,4 @@
-/* Use only "sqlite3" command to enter into sqlite3 shell with a transient
+ Use only "sqlite3" command to enter into sqlite3 shell with a transient
    in-memory database. But later you should use ".open databasename.db" to enter
    into an actual database file.*/
 C:\Users\rkpatil.ORADEV>sqlite3
@@ -902,4 +902,794 @@ sqlite>
       order. You may want to include the track number in the output to verify
       that it worked OK.
 */
+sqlite> SELECT songs.track AS song_track, songs.title AS song_title
+        FROM songs
+        INNER JOIN albums ON songs.album=albums._id
+        WHERE albums.name="Forbidden"
+        ORDER BY songs.track;
+song_track|song_title
+1|The Illusion of Power
+2|Get a Grip
+3|Can't Get Close Enough
+4|Shaking Off the Chains
+5|I Won't Cry for You
+6|Guilty as Hell
+7|Sick and Tired
+8|Rusty Angels
+9|Forbidden
+10|Kiss of Death
 
+
+-- 3. Display all songs for the band "Deep Purple".
+sqlite> SELECT songs.title AS song_title/*, artists.name AS artist_name*/
+        FROM songs
+        INNER JOIN albums ON songs.album=albums._id
+        INNER JOIN artists ON albums.artist=artists._id
+        WHERE artists.name="Deep Purple";
+/*song_title
+Love Help Me (2000 Digital Remaster)
+Might Just Take Your Life
+And The Address (2000 Digital Remaster)
+Fireball (Take 1 - Instrumental)
+Maybe I'm a Leo
+Fireball
+No One Came
+Mistreated
+Smoke On The Water
+Mary Long
+Rat Bat Blue
+What's Goin' On Here
+I Need Love
+Studio Chat
+Hush
+Shield
+April (2000 Digital Remaster)
+Wring That Neck
+When a Blind Man Cries (B-Side)
+Bird Has Flown (2000 Digital Remaster)
+Highway Star
+Pictures Of Home
+Fools
+Lazy
+Smoke On The Water
+You Fool No One
+Speed King (Piano Version)
+Black Night
+Slow Train (Album Outtake)
+Dealer
+Mistreated
+Pictures of Home
+Space Truckin'
+Our Lady ('99 Remix)
+Child In Time
+The Painter (2000 Digital Remaster)
+Lady Luck
+Sail Away
+Bloodsucker
+Painted Horse (studio out-take)
+Prelude_ Happiness_I'm So Glad (Medley) (2000 Digital R
+Woman From Tokyo ('99 Remix)
+Black Night (Unedited Roger Glover Remix)
+Hey Joe (BBC Top Gear Session)
+Help (Alternate Take)
+Listen Learn Read On
+Love Don't Mean A Thing
+I'm Alone (B-Side)
+Burn
+Space Truckin'
+The Painter (BBC Radio Session)
+Studio Chat
+High Ball Shooter
+Woman From Tokyo
+You Fool No One
+Studio Chat
+The Bird Has Flown (Alternate A-Side Version) (1998 Dig
+Third Movement- Vivace - Presto
+Woman From Tokyo (alt.bridge)
+River Deep Mountain High
+Living Wreck
+Shadows
+Rat Bat Blue (writing session)
+Studio Chat
+'A' 200
+Studio Chat
+Jam Stew (Unreleased Instrumental)
+Drifter
+Lady Double Dealer
+Super Trouper
+No One Came (Remix 1996)
+Exposition - We Can Work It Out
+Lalena (2000 Digital Remaster)
+Speed King
+Lay Down Stay Down
+Into The Fire
+Flight Of The Rat (Roger Glover Remix)
+Strange Kind Of Woman (A-Side Remix 1996)
+You Can't Do It Right
+Lalena (BBC Radio Session)
+The Mule (Drum Solo)
+Emmaretta (1998 Digital Remaster)
+Backwards Piano
+Lazy (Quadrophonic Mix)
+No No No
+Speed King
+Black Night (Original Single Version)
+Hey Joe (2000 Digital Remaster)
+Smooth Dancer
+Love Child
+The Gypsy
+Lazy
+Anyone's Daughter
+First Day Jam (instrumental)
+The Noise Abatement Society Tapes
+One More Rainy Day (2000 Digital Remaster)
+Stormbringer
+First Movement- Moderato - Allegro
+Child In Time
+Lady Double Dealer
+Never Before
+Demon's Eye (Remix 1996)
+Wring That Neck
+Fault Line (2000 Digital Remaster)
+You Keep On Moving
+Strange Kind Of Woman
+It's All Over (BBC Top Gear Session Bonus Track)
+Second Movement- Andante
+Child In Time
+Cry Free (Roger Glover Remix)
+Hey Bop A Re Bop (BBC Top Gear Session Bonus Track)
+Freedom (Album Outtake)
+Why Didn't Rosemary_ (1999 Digital Remaster)
+Place In Line
+Maybe I'm a Leo (Quadrophonic Mix)
+Studio Chat
+Rat Bat Blue ('99 Remix)
+Wring That Neck (BBC Top Gear Session Bonus Track)
+Encore- Third Movement- Vivace - Presto (Part)
+Love Help Me (Instrumental Version)
+Flight Of The Rat
+Playground (Remixed Instrumental Studio Out Take Bonus Track)
+[Intro]
+Smoke On The Water
+Gettin' Tighter
+Demon's Eye
+Maybe I'm A Leo
+Stormbringer
+When A Blind Man Cries
+Speed King (Roger Glover Remix)
+Anthem
+Oh No No No (Studio Out Take Bonus Track)
+Burn
+Soldier Of Fortune
+This Time Around Owed To 'G' (Instrumental)
+Hush (Live US TV)
+Lazy
+Mandrake Root (1998 Digital Remaster)
+Comin' Home
+Hold On
+Highway Star
+Kentucky Woman
+Hush (1998 Digital Remaster)
+Highway Star
+Blind (2000 Digital Remaster)
+Our Lady
+Never Before
+Hard Lovin' Man
+Holy Man
+Emmaretta (BBC Top Gear Session)
+Help (2000 Digital Remaster)
+Chasing Shadows (2000 Digital Remaster)
+The Mule
+Lucille
+Space Truckin'
+*/
+
+
+
+-- Alternatively we can use created VIEW artist_list for this purpose.
+sqlite> SELECT song_title FROM artists_list WHERE artist_name="Deep Purple";
+-- Output:
+/*
+song_title
+Burn
+Might Just Take Your Life
+Lay Down Stay Down
+Sail Away
+You Fool No One
+What's Goin' On Here
+Mistreated
+'A' 200
+Comin' Home
+Lady Luck
+Gettin' Tighter
+Dealer
+I Need Love
+Drifter
+Love Child
+This Time Around Owed To 'G' (Instrumental)
+You Keep On Moving
+[Intro]
+Hush
+Wring That Neck
+Child In Time
+First Movement- Moderato - Allegro
+Second Movement- Andante
+Third Movement- Vivace - Presto
+Encore- Third Movement- Vivace - Presto (Part)
+Chasing Shadows (2000 Digital Remaster)
+Blind (2000 Digital Remaster)
+Lalena (2000 Digital Remaster)
+Fault Line (2000 Digital Remaster)
+The Painter (2000 Digital Remaster)
+Why Didn't Rosemary_ (1999 Digital Remaster)
+Bird Has Flown (2000 Digital Remaster)
+April (2000 Digital Remaster)
+The Bird Has Flown (Alternate A-Side Version) (1998 Dig
+Emmaretta (1998 Digital Remaster)
+Emmaretta (BBC Top Gear Session)
+Lalena (BBC Radio Session)
+The Painter (BBC Radio Session)
+Speed King
+Bloodsucker
+Child In Time
+Flight Of The Rat
+Into The Fire
+Living Wreck
+Hard Lovin' Man
+Black Night (Original Single Version)
+Studio Chat
+Speed King (Piano Version)
+Studio Chat
+Cry Free (Roger Glover Remix)
+Studio Chat
+Jam Stew (Unreleased Instrumental)
+Studio Chat
+Flight Of The Rat (Roger Glover Remix)
+Studio Chat
+Speed King (Roger Glover Remix)
+Studio Chat
+Black Night (Unedited Roger Glover Remix)
+Fireball
+No No No
+Demon's Eye
+Anyone's Daughter
+The Mule
+Fools
+No One Came
+Strange Kind Of Woman (A-Side Remix 1996)
+I'm Alone (B-Side)
+Freedom (Album Outtake)
+Slow Train (Album Outtake)
+Demon's Eye (Remix 1996)
+The Noise Abatement Society Tapes
+Fireball (Take 1 - Instrumental)
+Backwards Piano
+No One Came (Remix 1996)
+Highway Star
+Maybe I'm A Leo
+Pictures Of Home
+Never Before
+Smoke On The Water
+Lazy
+Space Truckin'
+When A Blind Man Cries
+Highway Star
+Maybe I'm a Leo
+Pictures of Home
+Never Before
+Smoke On The Water
+Lazy
+Space Truckin'
+When a Blind Man Cries (B-Side)
+Maybe I'm a Leo (Quadrophonic Mix)
+Lazy (Quadrophonic Mix)
+Burn
+Mistreated
+Lady Double Dealer
+You Fool No One
+Stormbringer
+Highway Star
+Child In Time
+Smoke On The Water
+The Mule (Drum Solo)
+Strange Kind Of Woman
+Lazy
+Space Truckin'
+Black Night
+Speed King
+Lucille
+And The Address (2000 Digital Remaster)
+Hush (1998 Digital Remaster)
+One More Rainy Day (2000 Digital Remaster)
+Prelude_ Happiness_I'm So Glad (Medley) (2000 Digital R
+Mandrake Root (1998 Digital Remaster)
+Help (2000 Digital Remaster)
+Love Help Me (2000 Digital Remaster)
+Hey Joe (2000 Digital Remaster)
+Shadows
+Love Help Me (Instrumental Version)
+Help (Alternate Take)
+Hey Joe (BBC Top Gear Session)
+Hush (Live US TV)
+Stormbringer
+Love Don't Mean A Thing
+Holy Man
+Hold On
+Lady Double Dealer
+You Can't Do It Right
+High Ball Shooter
+The Gypsy
+Soldier Of Fortune
+Listen Learn Read On
+Wring That Neck
+Kentucky Woman
+Exposition - We Can Work It Out
+Shield
+Anthem
+River Deep Mountain High
+Oh No No No (Studio Out Take Bonus Track)
+It's All Over (BBC Top Gear Session Bonus Track)
+Hey Bop A Re Bop (BBC Top Gear Session Bonus Track)
+Wring That Neck (BBC Top Gear Session Bonus Track)
+Playground (Remixed Instrumental Studio Out Take Bonus Track)
+Woman From Tokyo
+Mary Long
+Super Trouper
+Smooth Dancer
+Rat Bat Blue
+Place In Line
+Our Lady
+Woman From Tokyo ('99 Remix)
+Woman From Tokyo (alt.bridge)
+Painted Horse (studio out-take)
+Our Lady ('99 Remix)
+Rat Bat Blue (writing session)
+Rat Bat Blue ('99 Remix)
+First Day Jam (instrumental)
+*/
+
+
+/*
+  4. Rename the band "Mehitabel" to "One Kitchen". Note that this is an
+     exception to the advice to always fully qualify your column names.
+     SET artists.name won't work, you just need to specify name.
+*/
+sqlite> UPDATE artists
+        SET name="One Kitchen"
+        WHERE artists.name="Mehitabel";
+
+
+-- 5. Check the record was correctly renamed.
+sqlite> SELECT artists.name FROM artists
+        WHERE artists.name="Mehitabel" OR artists.name="One Kitchen";
+/* We should see only one entry for "One Kitchen" and
+  zero entries for "Mehitabel". */
+
+
+/*
+  6. Select the titles of all the songs by Aerosmith in alphabetical order.
+     Include only the title in the output.
+*/
+sqlite> SELECT songs.title AS song_title
+        FROM songs
+        INNER JOIN albums ON songs.album=albums._id
+        INNER JOIN artists ON albums.artist=artists._id
+        WHERE artists.name="Aerosmith"
+        ORDER BY songs.title;
+
+
+-- Alternatively by using VIEW:
+sqlite> SELECT song_title FROM artists_list
+        WHERE artist_name="Aerosmith"
+        ORDER BY song_title;
+
+-- Output:
+/*
+song_title
+(Dulcimer Stomp) The Other Side
+(Going Down) Love In An Elevator
+(Hoodoo) Voodoo Medicine Man
+(Water Song) Janie's Got A Gun
+Adam's Apple
+Adam's Apple
+Ain't That A Bitch
+Amazing
+Amazing
+Angel
+Angel
+Attitude Adjustment
+Avant Garden
+Back In The Saddle
+Beyond Beautiful
+Big Ten Inch Record
+Blind Man
+Bone To Bone (Coney Island White Fish Boy)
+Boogie Man
+Can't Stop Messin'
+Cheese Cake
+Chip Away The Stone
+Chip Away The Stone
+Chiquita
+Come Together
+Crash
+Crazy
+Crazy
+Critical Mass
+Cryin'
+Cryin'
+Darkness
+Deuces Are Wild
+Don't Get Mad Get Even
+Dream On
+Dream On
+Drop Dead Gorgeous
+Dude (Looks Like A Lady)
+Dude (Looks Like A Lady)
+Dude (Looks Like A Lady)- live
+Eat The Rich
+Eat The Rich
+F.I.N.E.
+Face
+Fallen Angels
+Falling In Love (Is Hard On The Knees)
+Falling Off
+Fever
+Flesh
+Fly Away From Here
+Full Circle
+Get A Grip
+Girl Keeps Coming Apart
+Gotta Love It
+Gypsy Boots
+Hangman Jury
+Heart's Done Time
+Hole In My Soul
+I Ain't Got You
+I'm Down
+Intro
+Jaded
+Jailbait
+Janie's Got A Gun
+Just Push Play
+Kiss Your Past Good-Bye
+Last Child
+Let The Music do the Talking
+Lick and a Promise
+Light Inside
+Line Up
+Livin' On The Edge
+Livin' On The Edge
+Lord Of The Thighs
+Lord Of The Thighs
+Lord Of The Thighs
+Love In An Elevator
+Luv Lies
+Magic Touch
+Make It
+Mama Kin
+Mama Kin
+Mama Kin
+Mia
+Monkey On My Back
+Mother Popcorn Draw The Line
+Movin' Out
+My Fist Your Face
+My Girl
+Nine Lives
+No More No More
+No Surprize
+No Surprize
+Nobody's Fault
+One Way Street
+Outta Your Head
+Pandora's Box
+Permanent Vacation
+Pink
+Rag Doll
+Rag Doll
+Rats in the Cellar
+Reefer Head Woman
+Remember (Walking In The Sand)
+Round And Round
+Round And Round
+S.O.S.
+S.O.S. (Too Bad)
+Same Old Song And Dance
+Seasons Of Wither
+Shame On You
+She's On Fire
+Shela
+Shut Up And Dance
+Sick As A Dog
+Sight For Sore Eyes
+Simoriah
+Somebody
+Something's Gotta Give
+Spaced
+St. John
+Sunshine
+Sweet Emotion
+Sweet Emotion
+Taste Of India
+The Farm
+The Movie
+The Other Side
+The Reason A dog
+The hop
+Think About It
+Three Mile Smile
+Toys In The Attic
+Toys In The Attic
+Train Kept A Rollin'
+Train Kept A Rollin'
+Train Kept A Rollin'
+Trip Hoppin'
+Uncle Salty
+Under My Skin
+Walk On Down
+Walk On Water
+Walk This Way
+Walk This Way
+Walkin' The Dog
+What It Takes
+What It Takes
+Woman Of The World
+Write Me
+You See Me Crying
+Young Lust
+*/
+
+
+/*
+    7. Replace the column that you used in the previous answer with
+       count(title) to get just a count of the number of songs.
+*/
+sqlite> SELECT COUNT(songs.title)
+        FROM songs
+        INNER JOIN albums ON songs.album=albums._id
+        INNER JOIN artists ON albums.artist=artists._id
+        WHERE artists.name="Aerosmith";
+
+-- Alternatively with VIEW:
+sqlite> SELECT COUNT(song_title) FROM artists_list
+        WHERE artist_name="Aerosmith";
+-- Output:
+COUNT(songs.title)
+151
+-- Output with VIEW
+COUNT(song_title)
+151
+
+
+
+/*  8. Search the Internet to find out how to get a list of the songs from
+       step 6 without any duplicates.
+*/
+sqlite> SELECT DISTINCT songs.title
+        FROM songs
+        INNER JOIN albums ON songs.album=albums._id
+        INNER JOIN artists ON albums.artist=artists._id
+        WHERE artists.name="Aerosmith"
+        ORDER BY songs.title;
+
+-- Alternatively Using VIEW
+sqlite> SELECT DISTINCT song_title FROM artists_list
+        WHERE artist_name="Aerosmith"
+        ORDER BY song_title;
+-- Output:
+/*
+title
+(Dulcimer Stomp) The Other Side
+(Going Down) Love In An Elevator
+(Hoodoo) Voodoo Medicine Man
+(Water Song) Janie's Got A Gun
+Adam's Apple
+Ain't That A Bitch
+Amazing
+Angel
+Attitude Adjustment
+Avant Garden
+Back In The Saddle
+Beyond Beautiful
+Big Ten Inch Record
+Blind Man
+Bone To Bone (Coney Island White Fish Boy)
+Boogie Man
+Can't Stop Messin'
+Cheese Cake
+Chip Away The Stone
+Chiquita
+Come Together
+Crash
+Crazy
+Critical Mass
+Cryin'
+Darkness
+Deuces Are Wild
+Don't Get Mad Get Even
+Dream On
+Drop Dead Gorgeous
+Dude (Looks Like A Lady)
+Dude (Looks Like A Lady)- live
+Eat The Rich
+F.I.N.E.
+Face
+Fallen Angels
+Falling In Love (Is Hard On The Knees)
+Falling Off
+Fever
+Flesh
+Fly Away From Here
+Full Circle
+Get A Grip
+Girl Keeps Coming Apart
+Gotta Love It
+Gypsy Boots
+Hangman Jury
+Heart's Done Time
+Hole In My Soul
+I Ain't Got You
+I'm Down
+Intro
+Jaded
+Jailbait
+Janie's Got A Gun
+Just Push Play
+Kiss Your Past Good-Bye
+Last Child
+Let The Music do the Talking
+Lick and a Promise
+Light Inside
+Line Up
+Livin' On The Edge
+Lord Of The Thighs
+Love In An Elevator
+Luv Lies
+Magic Touch
+Make It
+Mama Kin
+Mia
+Monkey On My Back
+Mother Popcorn Draw The Line
+Movin' Out
+My Fist Your Face
+My Girl
+Nine Lives
+No More No More
+No Surprize
+Nobody's Fault
+One Way Street
+Outta Your Head
+Pandora's Box
+Permanent Vacation
+Pink
+Rag Doll
+Rats in the Cellar
+Reefer Head Woman
+Remember (Walking In The Sand)
+Round And Round
+S.O.S.
+S.O.S. (Too Bad)
+Same Old Song And Dance
+Seasons Of Wither
+Shame On You
+She's On Fire
+Shela
+Shut Up And Dance
+Sick As A Dog
+Sight For Sore Eyes
+Simoriah
+Somebody
+Something's Gotta Give
+Spaced
+St. John
+Sunshine
+Sweet Emotion
+Taste Of India
+The Farm
+The Movie
+The Other Side
+The Reason A dog
+The hop
+Think About It
+Three Mile Smile
+Toys In The Attic
+Train Kept A Rollin'
+Trip Hoppin'
+Uncle Salty
+Under My Skin
+Walk On Down
+Walk On Water
+Walk This Way
+Walkin' The Dog
+What It Takes
+Woman Of The World
+Write Me
+You See Me Crying
+Young Lust
+*/
+
+
+/*
+  9. Search the Internet again to find out how to get a count of the songs
+     without duplicates.
+     Hint: It uses the same keyword as step 8 but the syntax may not be obvious.
+*/
+-- let us get first count of all songs, just to compare it later.
+sqlite> SELECT COUNT(songs.title) FROM songs;
+-- Output:
+COUNT(songs.title)
+5350
+
+-- Now, get the count of songs without duplicates.
+sqlite> SELECT COUNT(DISTINCT songs.title) FROM songs;
+-- Output:
+COUNT(DISTINCT songs.title)
+4894
+
+
+
+/*
+  Repeat challenge 9 for artists "Aerosmith", this is as per the videO from Tim
+  in the course:
+  We use create VIEW named artists_list here.
+*/
+-- let us get first count of all songs, just to compare it later.
+sqlite> SELECT COUNT(DISTINCT song_title)
+        FROM artists_list
+        WHERE artist_name="Aerosmith";
+
+-- Output:
+COUNT(song_title)
+151
+
+-- Now, get the count of songs without duplicates.
+sqlite> SELECT COUNT(DISTINCT song_title)
+        FROM artists_list
+        WHERE artist_name="Aerosmith";
+
+-- Output:
+COUNT(DISTINCT song_title)
+128
+
+
+
+
+
+
+/* 10. Repeat the previous query to find the number of artists
+       (which, obviously, should be one) and the number of albums.
+*/
+-- Total Number of artists:
+sqlite> SELECT COUNT(DISTINCT artists.name) FROM artists;
+-- Output:
+COUNT(DISTINCT artists.name)
+202
+
+-- Total Number of albums:
+sqlite> SELECT COUNT(DISTINCT albums.name) FROM albums;
+-- Output:
+COUNT(DISTINCT albums.name)
+433
+
+
+-- Below 2 are the actual challenges:
+
+-- Distinct artists named Aerosmith.
+sqlite> SELECT COUNT(DISTINCT artist_name)
+        FROM artists_list
+        WHERE artist_name="Aerosmith";
+
+-- Output:
+COUNT(DISTINCT artist_name)
+1
+
+
+-- Distinct number of albums from artists named Aerosmith.
+sqlite> SELECT COUNT(DISTINCT album_name)
+        FROM artists_list
+        WHERE artist_name="Aerosmith";
+
+-- Output:
+COUNT(DISTINCT album_name)
+13
