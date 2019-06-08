@@ -18,13 +18,13 @@ USE sql_store;
 
 -- Semicolon is must at the end of each SQL statement.
 
-SELECT 
+SELECT
     *
 FROM
     customers;
 
 -- Now, select a record(row) from customers table where customer id is 1.
-SELECT 
+SELECT
     *
 FROM
     customers
@@ -36,7 +36,7 @@ WHERE
     this whole SQL query file will also be executed one by one.
 */
 
-SELECT 
+SELECT
     *
 FROM
     customers
@@ -62,8 +62,19 @@ SELECT 'ORANGES';
 /*  Below query will fail with message:
         Error Code: 1054. Unknown column 'CUSTOMER' in 'field list'
 */
+-- SELECT CUSTOMER;
 
-SELECT 
+
+
+
+
+/*
+    ============================================================================
+    ============================= SQL SELECT Clause ============================
+    ============================================================================
+*/
+
+SELECT
     *
 FROM
     customers;
@@ -74,20 +85,20 @@ FROM
     interested in getting only required columns from customers tables.
     Let us try to do that by selecting only first_name and last_name columns.
 */
-SELECT 
+SELECT
     first_name, last_name
 FROM
     customers;
 
 -- If we want to display first last_name and then first name:
-SELECT 
+SELECT
     last_name, first_name
 FROM
     customers;
 
 
 -- Looks at the below query:
-SELECT 
+SELECT
     last_name, first_name, points, points + 10
 FROM
     customers;
@@ -97,7 +108,7 @@ FROM
     You can do even more complex math on the points table and the result will be
     displayed according to that. See the below query:
 */
-SELECT 
+SELECT
     last_name, first_name, points, points * 10 + 1000 / 10
 FROM
     customers;
@@ -110,14 +121,14 @@ FROM
     show our intention clearly in the query.
     See the below query for example:
 */
-SELECT 
+SELECT
     last_name, first_name, points, (points + 10) * 100
 FROM
     customers;
 
 -- Let us now get rid of that weird column name using "AS" keyword:
 
-SELECT 
+SELECT
     last_name,
     first_name,
     points,
@@ -129,7 +140,7 @@ FROM
     Note: "AS" keyword can be used to give alias to any of the existing columns
     of the table as well.
 */
-SELECT 
+SELECT
     last_name AS family_name,
     first_name,
     points,
@@ -141,7 +152,7 @@ FROM
     Note: If your alias name contains space(s) within it, you should surround it
     with double quotes. for example- "discount factor"
 */
-SELECT 
+SELECT
     last_name AS family_name,
     first_name,
     points,
@@ -151,7 +162,7 @@ FROM
 
 
 -- Looks at the below query, to display states for customers:
-SELECT 
+SELECT
     state
 FROM
     customers;
@@ -170,16 +181,47 @@ FROM
     Let us display the count of above 2 queries to see how many non-distinct and
     distinct states are there in customers table.
 */
-SELECT 
+SELECT
     COUNT(state)
 FROM
     customers;-- We got 10.
-SELECT 
+SELECT
     COUNT(DISTINCT state)
 FROM
     customers; -- We got 9.
 
 
 
--- ==================== Exercise Time: ====================
+/*
+    ============================== Exercise Time: ==============================
+*/
+
+/*
+    Write a query to return all the products in the database. Show only the
+    below columns for all the product records.
+    - name
+    - unit_price
+    - new price (unit_price * 1.1)
+*/
+
+-- Solution:
+
+USE products;
+SELECT
+    name,
+    unit_price,
+    unit_price * 1.1 AS 'new price'
+FROM
+    products;
+
+
+
+
+
+
+/*
+    ============================================================================
+    ============================= SQL WHERE Clause =============================
+    ============================================================================
+*/
 
