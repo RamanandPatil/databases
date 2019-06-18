@@ -225,3 +225,344 @@ FROM
     ============================================================================
 */
 
+/*
+    Where clause is used to filter the data from database.
+    For example if I want to filter only the customers who have points > 3000.
+*/
+
+SELECT
+    *
+FROM
+    customers
+WHERE
+    points > 3000;
+
+/* Comparison Operators:
+    >       Greater than
+    >=      Greater than OR Equal to
+    <       Less than
+    <=      Less than OR Equal to
+    =       Equal to (Equality operator)
+    !=      Not Equal to
+    <>      Not Equal to
+*/
+
+-- Example 1: Find all the customers not in the state of Virginia(VA);
+SELECT
+    *
+FROM
+    customers
+WHERE
+    state != 'VA';
+
+
+-- OR
+
+SELECT
+    *
+FROM
+    customers
+WHERE
+    state <> 'VA';
+    -- state <> 'va'; -- this will also work because MySQL strings are
+                      -- not case sensitive.
+
+
+-- Example 2: Find all the customers who are born after January 1st 1990.
+SELECT
+    *
+FROM
+    customers
+WHERE
+    birth_date > '1990-01-01'; -- Date is represented as yyyy-mm-dd' format.
+
+
+
+/*
+    ============================== Exercise Time: ==============================
+*/
+
+-- Get orders placed this year/current year:
+SELECT
+    *
+FROM
+    orders
+WHERE
+    order_date >= '2019-01-01';
+
+
+
+
+/*
+    ============================================================================
+    ==================== The AND, OR and NOT Operators =========================
+    ============================================================================
+*/
+
+/*
+    AND: use when both conditions should be true for the result.
+    OR: Either(any one) condition should be true for the result.
+    NOT: When the condition should not be true for the result.
+*/
+
+/*
+    AND Example:
+        Find customers born after 1st Jan 1990 and have more than 1000 points.
+*/
+SELECT
+    *
+FROM
+    customers
+WHERE
+    birth_date > '1990-01-01'
+        AND points > 1000;
+
+/*
+    OR Example:
+        Find customers born after 1st Jan 1990 or have more than 1000 points.
+*/
+SELECT
+    *
+FROM
+    customers
+WHERE
+    birth_date > '1990-01-01'
+        OR points > 1000;
+
+/*
+    OR and AND Example:
+        Find customers either born after 1st Jan 1990 or have more than 1000
+        points and who live in Virginia.
+*/
+SELECT
+    *
+FROM
+    customers
+WHERE
+    birth_date > '1990-01-01'
+        OR (points > 1000 AND state = 'VA');
+
+/*
+    -- AND operator has higher precedence then OR.
+    -- OR has higher precedence than NOT.
+    -- NOT has lowest precedence.
+*/
+/*
+    NOT Example:
+        Find customers not born after 1st Jan 1990 or doesn't have more than
+        1000 points.
+    From the statement it is very clear that this is the NOT of our above
+    OR example. So, we can just use not on the condition of that example.
+*/
+SELECT
+    *
+FROM
+    customers
+WHERE
+    NOT (birth_date > '1990-01-01'
+        OR points > 1000);
+
+/*
+    The above example actually lists the customers who are born on or before 1st
+    January 1990 and have points less than or equal to 1000.
+    To confirm compare the result of the above query with this one:
+*/
+SELECT
+    *
+FROM
+    customers
+WHERE
+    birth_date <= '1990-01-01'
+        AND points <= 1000;
+
+/*
+    This means below 2 statements are same:
+    NOT (birth_date > '1990-01-01' OR points > 1000);
+    birth_date <= '1990-01-01' AND points <= 1000;
+
+    i.e. After removing NOT, > became <= and OR because AND.
+*/
+
+
+/*
+    ============================== Exercise Time: ==============================
+*/
+
+/*
+    From the order_items table, get the items for order no. 6 where the total
+    price is greater than 30
+*/
+
+SELECT
+    *
+FROM
+    order_items
+WHERE
+    order_id = 6
+        AND (quantity * unit_price) > 30;
+
+
+
+/*
+    ============================================================================
+    ========================== The IN Operator =================================
+    ============================================================================
+*/
+
+-- Notes: TODO
+
+
+/*
+    ============================== Exercise Time: ==============================
+*/
+
+/*
+    Return products with quantity in stock equal to 49, 38, 72.
+*/
+SELECT
+    *
+FROM
+    sql_store.products
+WHERE
+    quantity_in_stock IN (49 , 38, 72);
+
+
+/*
+    ============================================================================
+    ========================== The BETWEEN Operator =================================
+    ============================================================================
+*/
+
+-- Notes: TODO
+
+
+/*
+    ============================== Exercise Time: ==============================
+*/
+
+/*
+    Return CUSTOMERS BORN BETWEEN 1/1/1990 AND 1/1/200
+*/
+SELECT
+    *
+FROM
+    sql_store.customers
+WHERE
+    birth_date BETWEEN '1990-01-01' AND '2000-01-01';
+
+
+
+/*
+    ============================================================================
+    ========================== The LIKE Operator =================================
+    ============================================================================
+*/
+
+/*
+    %   Matches with any number of characters.(0 or more).
+    _   Matches with a single character.(any one character).
+
+-- Notes: TODO
+
+
+/*
+    ============================== Exercise Time: ==============================
+*/
+
+/*
+    1. Get the customers whose address contains TRAIL or AVENUE
+*/
+SELECT
+    *
+FROM
+    sql_store.customers
+WHERE
+    address LIKE '%TRAIL%'
+        OR address LIKE '%AVENUE%';
+
+/*
+    2. Get the customers whose phone numbers end with 9.
+*/
+SELECT
+    *
+FROM
+    sql_store.customers
+WHERE
+    phone LIKE '%9';
+
+
+
+/*
+    ============================================================================
+    ========================== The REGEXP Operator =================================
+    ============================================================================
+*/
+
+/*
+    ^   Start(beginning) of the string
+    $   End of the string
+    |   logical OR operator in regex
+    []  Any one of the character in the square brackets
+    -   To match the range. e.g. [a-d] matches to a or b or c or d.
+
+*/
+
+
+
+/*
+    ============================== Exercise Time: ==============================
+*/
+
+/*
+    Write 4 separate queries for the below exercise:
+    Get the customers whose:
+        - first names are ELKA OR AMBUR
+        - last names end with EY or ON
+        - last names start with MY or contains SE
+        - last names contain B followed by R or U.
+*/
+
+-- Solutions:
+-- 1.
+SELECT
+    *
+FROM
+    customers
+WHERE
+    first_name REGEXP 'elka|ambur';
+
+
+-- 2.
+SELECT
+    *
+FROM
+    customers
+WHERE
+    last_name REGEXP 'ey$|on$';
+
+-- 3.
+SELECT
+    *
+FROM
+    customers
+WHERE
+    last_name REGEXP '^my|se';
+
+-- 4.
+SELECT
+    *
+FROM
+    customers
+WHERE
+    last_name REGEXP 'b[ru]';
+    -- last_name REGEXP 'br|bu'; -- this is also correct
+
+
+
+
+
+/*
+    ============================================================================
+    ========================== The IS NULL Operator ============================
+    ============================================================================
+*/
