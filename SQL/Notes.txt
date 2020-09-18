@@ -1,0 +1,72 @@
+Key Terms:
+
+Data:
+	Information
+	
+Database:
+	Collection of related pieces of data
+
+DBMS: DataBase Management System:
+	Software used to perform different operations, like addition, access, updating, and deletion of the data(from database)
+	
+RDBMS: Relational DataBase Management System
+	
+	
+SQL: Structured Query Language
+	
+	
+	
+
+Exaplanations:
+	
+Database:
+	- A collection of related pieces of data, whose purpose is to solve the data management needs of an institution is called a Database.
+	- Cannot understand the commands on its own,(DBMS is required for this)
+	- Database store the data and provide a method/way to access it.
+	(DBMS actually converts the queries into a meaningful command to invoke the method used to access the database.)
+	
+	Different Types of Database:
+	Databases can be classified into four major types:
+		- Relational database:
+			Stores data in form of tables which are related to each other.
+		- Hierarchical database:
+			Follow a tree-like structure
+		- Network database:
+			Similar to Hierarchical ones, the only difference is one child is connected to many parents.
+		- Object-oriented database:
+			- An object database is a database management system in which information is represented in the form of objects as used in object-oriented programming.
+			- RDBMS actually stores values in form of tables, but what if we make a separate table for some/all of the values in the table? That will become OOD
+	
+	Databases can be classified into four major types by model:
+		- Relational Model Databases
+		- Document Model Databases
+		- Key Value Model Databases
+		- Graph Model Databases
+		- Wide Columnar Databases
+	
+
+DBMS: DataBase Management System:
+	- Database management system is very complex software which save the data on the secondary storage devices and which are used to manipulate databases.
+	- In simple word, it is a software used to perform different operations, like addition, access, updating, and deletion of the data(from database)
+	- Acts as the backbone of a database and makes using a database a cakewalk as it makes access and management of data a lot easier.
+	- DBMS actually understand the queries and help database to understand the requirements.
+	  i.e. DBMS actually converts the queries into a meaningful command to invoke the method used to access the database.
+	- Acts as connecting bridge between the database and the user
+
+RDBMS: Relational DataBase Management System
+
+SQL: Structured Query Language
+
+
+
+Importnt links to refer:
+- Data, Database and Database Management System: https://www.toolsqa.com/sql/data-database-and-database-management-system/
+- Difference between Database and DBMS: https://www.geeksforgeeks.org/difference-between-database-and-dbms/
+
+	
+
+
+
+
+
+
