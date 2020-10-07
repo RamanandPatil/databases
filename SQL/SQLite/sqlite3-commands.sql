@@ -1,4 +1,4 @@
- Use only "sqlite3" command to enter into sqlite3 shell with a transient
+/* Use only "sqlite3" command to enter into sqlite3 shell with a transient
    in-memory database. But later you should use ".open databasename.db" to enter
    into an actual database file.*/
 C:\Users\rkpatil.ORADEV>sqlite3
